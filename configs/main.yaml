@@ -1,0 +1,5 @@
+defaults:
+  - data: dogbreed
+  - model: small
+  - trainer: cpu
+  - _self_

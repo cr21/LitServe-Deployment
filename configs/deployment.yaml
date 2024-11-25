@@ -1,0 +1,8 @@
+defaults:
+  - _self_
+  - deployment: bird_200_vit_tiny_deployment
+
+name: ${deployment.name}
+ckpt_path: checkpoints/${deployment.name}/best_model.ckpt
+accelerator: ${deployment.accelerator}
+labels_dir: labels/${deployment.name}/labels.txt

@@ -1,0 +1,15 @@
+_target_: src.model_builder.timm_classifier.TimmClassifier
+
+# Model parameters
+base_model: vit_large_patch16_384
+num_classes: 1000
+pretrained: true
+
+# Optimizer parameters
+learning_rate: 1e-3
+weight_decay: 1e-5
+
+# Learning rate scheduler parameters
+patience: 3
+factor: 0.1
+min_lr: 1e-6
