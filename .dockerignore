@@ -3,11 +3,7 @@
 __pycache__
 checkpoints/*/*.ckpt
 predictions/*/*.png
-data/*
-/data
-data/food*
-data/*
 venv/*
-/data/*
+data/*
 .dvc/cache/*
 checkpoints
