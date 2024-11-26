@@ -1,4 +1,4 @@
-name: food_101_vit_tiny
+name: food_101_vit_small
 # ckpt_path: ${oc.env:PROJECT_ROOT}/checkpoints/${name}/best_model.ckpt
 ckpt_path: /checkpoints/${name}/best_model.ckpt
 accelerator: 'auto'
@@ -7,7 +7,7 @@ base_model: 'vit_tiny_patch16_224'
 # save_dir: ${oc.env:PROJECT_ROOT}/predictions/${name}/
 # data_dir: ${data.data_dir}
 s3_model_bucket_location: "pytorch-model-emlov4"
-s3_model_bucket_folder_location: "food_101_vit_tiny"
+s3_model_bucket_folder_location: "food_101_vit_small"
 s3_prediction_bucket_location: "pytorch-model-emlov4-predictions"
 
 s3_labels_bucket_location: "emlo-model-labels"

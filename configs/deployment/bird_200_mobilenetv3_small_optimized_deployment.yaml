@@ -1,16 +1,16 @@
-name: food_101_vit_tiny
+name: bird_200_mobilenetv3_small_optimized
 # ckpt_path: ${oc.env:PROJECT_ROOT}/checkpoints/${name}/best_model.ckpt
 ckpt_path: /checkpoints/${name}/best_model.ckpt
 accelerator: 'auto'
 labels_dir: /labels/${name}/labels.txt
-base_model: 'vit_tiny_patch16_224'
+base_model: 'mobilenetv3_large_100'
 # save_dir: ${oc.env:PROJECT_ROOT}/predictions/${name}/
 # data_dir: ${data.data_dir}
 s3_model_bucket_location: "pytorch-model-emlov4"
-s3_model_bucket_folder_location: "food_101_vit_tiny"
+s3_model_bucket_folder_location: "bird_200_mobilenetv3_small_optimized"
 s3_prediction_bucket_location: "pytorch-model-emlov4-predictions"
 
 s3_labels_bucket_location: "emlo-model-labels"
-s3_labels_bucket_folder_location: "food_101_dataset"
-s3_labels_file_name: "food_101_classes.txt"
+s3_labels_bucket_folder_location: "bird_200_dataset"
+s3_labels_file_name: "bird_200_classes.txt"
 

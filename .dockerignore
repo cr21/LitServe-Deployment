@@ -1,0 +1,12 @@
+.venv/
+.venv/*
+__pycache__
+checkpoints/*/*.ckpt
+predictions/*/*.png
+data/*
+/data
+data/food*
+data/*
+venv/*
+/data/*
+.dvc/cache/*

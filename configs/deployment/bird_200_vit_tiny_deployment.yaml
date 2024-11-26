@@ -3,6 +3,7 @@ name: bird_200_vit_tiny
 ckpt_path: /checkpoints/${name}/best_model.ckpt
 accelerator: 'auto'
 labels_dir: /labels/${name}/labels.txt
+base_model: 'vit_tiny_patch16_224'
 # save_dir: ${oc.env:PROJECT_ROOT}/predictions/${name}/
 # data_dir: ${data.data_dir}
 s3_model_bucket_location: "pytorch-model-emlov4"

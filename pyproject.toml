@@ -32,4 +32,5 @@ dependencies = [
     "boto3>=1.35.36",
     "split-folders>=0.5.1",
     "litserve>=0.2.4",
+    "gpustat>=1.1.1",
 ]
