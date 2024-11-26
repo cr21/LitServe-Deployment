@@ -7,6 +7,10 @@ import base64
 import hydra
 from omegaconf import DictConfig
 import os
+import rootutils
+root = rootutils.setup_root(__file__, indicator=".project-root", pythonpath=True)
+print(f"Project root: {root}")
+
 from src.utils.s3_utility import download_model_from_s3, read_s3_file
 from torchvision import transforms
 #download_model_from_s3('best_model.ckpt','pytorch-model-emlov4','bird_200_vit_tiny','checkpoints/bird_200_vit_tiny/')
@@ -117,7 +121,7 @@ class ImageClassifierAPI(ls.LitAPI):
             ]
         }
 
-@hydra.main(version_base=None, config_path="configs", config_name="deployment")
+@hydra.main(version_base=None, config_path="../../configs", config_name="deployment")
 def main(cfg: DictConfig):
     # Initialize API with context
     api = ImageClassifierAPI(context=cfg)

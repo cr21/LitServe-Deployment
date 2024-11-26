@@ -16,6 +16,10 @@ except ImportError:
     GPU_AVAILABLE = False
 import hydra
 from omegaconf import DictConfig
+import logging
+
+# Disable timm logs
+logging.getLogger("timm").setLevel(logging.WARNING)
 
 # Constants
 SERVER_URL = "http://localhost:8000/predict"
@@ -24,7 +28,6 @@ TEST_IMAGE_URL = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwg
 def get_baseline_throughput(batch_size, num_iterations, model_name, input_size, accelerator, num_classes):
     """Calculate baseline model throughput without API overhead"""
     device = accelerator if accelerator != 'auto' else ("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"model_name {model_name}")
     # Create model and move to device
     model = timm.create_model(model_name=model_name, num_classes=num_classes, pretrained=True)
     model = model.to(device)
@@ -118,7 +121,7 @@ def benchmark_api(num_requests=100, concurrency_level=10, server_url=None):
         "avg_gpu_usage": avg_gpu
     }
 
-@hydra.main(version_base=None, config_path="configs", config_name="benchmark")
+@hydra.main(version_base=None, config_path="../../configs", config_name="benchmark")
 def run_benchmarks(cfg: DictConfig):
     """Run comprehensive benchmarks and create plots"""
     # Test different batch sizes for baseline throughput

@@ -41,7 +41,7 @@ def test_single_image():
     
     if response.status_code == 200:
         predictions = response.json()["predictions"]
-        print("\\nTop 5 Predictions:")
+        print("\nTop 5 Predictions:")
         for pred in predictions:
             print(f"{pred['label']}: {pred['probability']:.2%}")
     else:
