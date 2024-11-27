@@ -16,3 +16,4 @@ s3_labels_file_name: "bird_200_classes.txt"
 
 max_batch_size : 4
 batch_timeout : 0.01
+workers_per_device: 1

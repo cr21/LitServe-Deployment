@@ -10,3 +10,4 @@ labels_dir: labels/${batch_deployment.name}/labels.txt
 
 max_batch_size : ${batch_deployment.max_batch_size}
 batch_timeout : ${batch_deployment.batch_timeout}
+workers_per_device: ${batch_deployment.workers_per_device}
