@@ -1,0 +1,12 @@
+defaults:
+  - _self_
+  - batch_deployment: bird_200_mobilenetv3_large_optimized
+
+name: ${batch_deployment.name}
+ckpt_path: checkpoints/${batch_deployment.name}/best_model.ckpt
+accelerator: ${batch_deployment.accelerator}
+labels_dir: labels/${batch_deployment.name}/labels.txt
+
+
+max_batch_size : 1
+batch_timeout : 0.01
