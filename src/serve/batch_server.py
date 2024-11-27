@@ -7,9 +7,9 @@ import base64
 import hydra
 from omegaconf import DictConfig
 import os
+import numpy as np
 import rootutils
 root = rootutils.setup_root(__file__, indicator=".project-root", pythonpath=True)
-print(f"Project root: {root}")
 
 from src.utils.s3_utility import download_model_from_s3, read_s3_file
 from torchvision import transforms
@@ -21,7 +21,7 @@ class ImageClassifierAPI(ls.LitAPI):
         self.context = context
 
     def setup(self, device):
-        print(f"3. set up called")
+        print(f"2. set up called")
         """Initialize the model and necessary components"""
         self.device = device
         self.cfg = self.context  # Hydra config passed through context
@@ -37,19 +37,15 @@ class ImageClassifierAPI(ls.LitAPI):
             s3_folder=self.cfg.batch_deployment.s3_model_bucket_folder_location,
             output_location=f"checkpoints/{self.cfg.batch_deployment.name}"
         )
-        print(self.cfg.batch_deployment.s3_labels_file_name)
-        print(self.cfg.batch_deployment.s3_labels_bucket_location)
-        print(self.cfg.batch_deployment.s3_labels_bucket_folder_location)
         # Download and load labels
         self.labels = read_s3_file(
             file_name=self.cfg.batch_deployment.s3_labels_file_name,
             bucket_name=self.cfg.batch_deployment.s3_labels_bucket_location,
             s3_folder=self.cfg.batch_deployment.s3_labels_bucket_folder_location
         ).strip().split('\n')
-        print(self.labels)
+        
         # Load checkpoint to get stored parameters
         checkpoint = torch.load(self.cfg.ckpt_path, map_location=device)
-        print(checkpoint['hyper_parameters'])
         # Create model using base_model from config and checkpoint parameters
         model_name = checkpoint['hyper_parameters']['base_model'] or self.cfg.batch_deployment.name
         num_classes = checkpoint['hyper_parameters']['num_classes'] or len(self.labels)
@@ -58,7 +54,6 @@ class ImageClassifierAPI(ls.LitAPI):
             num_classes=num_classes,
             pretrained=checkpoint['hyper_parameters']['pretrained']
         )
-        print("Model created")
         # Remove 'model.' prefix from state dict keys
         state_dict = checkpoint['state_dict']
         new_state_dict = {}
@@ -90,14 +85,13 @@ class ImageClassifierAPI(ls.LitAPI):
         image_bytes = request.get("image")
         if not image_bytes:
             raise ValueError("No image data provided")
-        
         return image_bytes
         
     def batch(self, inputs):
         """
         Process batch and multiple inputs
         """
-        print("444444"*10)
+        print("4. Batch fn")
         batched_tensor = []
         for image_bytes in inputs:
             # Decode base64 string to bytes
@@ -110,12 +104,11 @@ class ImageClassifierAPI(ls.LitAPI):
         # stacked all tensor into a batch
         return torch.stack(batched_tensor).to(self.device)
 
-
-        return super().batch(inputs)
     
     @torch.no_grad()
     def predict(self, x):
         """Run inference on the input batch"""
+        print("5. Predict ",type(x))
         if type(x)==str:
             batched_tensor = []
             img_bytes = base64.b64decode(x)
@@ -134,17 +127,16 @@ class ImageClassifierAPI(ls.LitAPI):
 
     def unbatch(self, output):
         """Split batch output into individual predictions"""
-        print("5"*10)
+        print("6 UnBatch . ")
         return  [output[i] for  i in range(len(output))]
 
     def encode_response(self, output):
         """Convert model output to API response"""
-        print("5. encoding called", output)
+        print(f"7. encode_response {self.context.get('max_batch_size')}")
         # Get top 5 predictions
         if self.context.get('max_batch_size',1)==1:
             output = output[0]
         probs, indices = torch.topk(output, k=5)
-        
         return {
             "predictions": [
                 {
@@ -170,3 +162,5 @@ def main(cfg: DictConfig):
 
 if __name__ == "__main__":
     main()
+
+

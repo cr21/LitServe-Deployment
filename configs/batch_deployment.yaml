@@ -8,5 +8,5 @@ accelerator: ${batch_deployment.accelerator}
 labels_dir: labels/${batch_deployment.name}/labels.txt
 
 
-max_batch_size : 1
-batch_timeout : 0.01
+max_batch_size : ${batch_deployment.max_batch_size}
+batch_timeout : ${batch_deployment.batch_timeout}

@@ -14,5 +14,5 @@ s3_labels_bucket_location: "emlo-model-labels"
 s3_labels_bucket_folder_location: "bird_200_dataset"
 s3_labels_file_name: "bird_200_classes.txt"
 
-max_batch_size : 2
+max_batch_size : 4
 batch_timeout : 0.01
