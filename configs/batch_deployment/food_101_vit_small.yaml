@@ -1,0 +1,19 @@
+name: food_101_vit_small
+# ckpt_path: ${oc.env:PROJECT_ROOT}/checkpoints/${name}/best_model.ckpt
+ckpt_path: /checkpoints/${name}/best_model.ckpt
+accelerator: 'auto'
+labels_dir: /labels/${name}/labels.txt
+base_model: 'food_101_vit_small'
+# save_dir: ${oc.env:PROJECT_ROOT}/predictions/${name}/
+# data_dir: ${data.data_dir}
+s3_model_bucket_location: "pytorch-model-emlov4"
+s3_model_bucket_folder_location: "food_101_vit_small"
+s3_prediction_bucket_location: "pytorch-model-emlov4-predictions"
+
+s3_labels_bucket_location: "emlo-model-labels"
+s3_labels_bucket_folder_location: "food_101_dataset"
+s3_labels_file_name: "food_101_classes.txt"
+
+max_batch_size : 4
+batch_timeout : 0.01
+workers_per_device: 1
