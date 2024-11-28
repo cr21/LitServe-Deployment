@@ -7,7 +7,7 @@ defaults:
 
 model_name: 'vit_tiny_patch16_224'
 pretrained: true
-batch_sizes: [1,8]
+batch_sizes: [1,8,16,32,64,128,256,512,1024,2048]
 num_iterations: 10
 input_size: 224
 accelerator: auto
@@ -16,6 +16,6 @@ num_classes: 200
 api:
   server_url: http://localhost:8000/predict
   test_image_url: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/beignets-task-guide.png
-  concurrency_levels: [1,8]
+  concurrency_levels: [1,8,16,32,64,128,256,512,1024,2048]
   num_requests: 100
 

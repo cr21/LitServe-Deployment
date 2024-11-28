@@ -108,7 +108,7 @@ class ImageClassifierAPI(ls.LitAPI):
     @torch.no_grad()
     def predict(self, x):
         """Run inference on the input batch"""
-        print("5. Predict ",type(x))
+        print("5. Predict ")
         if type(x)==str:
             batched_tensor = []
             img_bytes = base64.b64decode(x)

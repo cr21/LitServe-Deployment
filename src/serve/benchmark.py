@@ -126,6 +126,7 @@ def run_benchmarks(cfg: DictConfig):
     """Run comprehensive benchmarks and create plots"""
     # Test different batch sizes for baseline throughput
     batch_sizes = cfg.batch_sizes
+    print(f"Batch Sizes :  {batch_sizes}")
     baseline_throughput = []
     
     print("Running baseline throughput tests...")
